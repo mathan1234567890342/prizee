@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lottery Notice</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .popup-box {
+      background: #222;
+      border: 2px solid #ffc107;
+      border-radius: 15px;
+      padding: 30px 25px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+      text-align: center;
+      position: relative;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .popup-box h3 {
+      color: #ffc107;
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    .popup-box p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+
+    .popup-box hr {
+      margin: 20px 0;
+      border: 1px solid #ffc107;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-btn:hover {
+      color: #ffc107;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Popup Overlay -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup-box">
+      <span class="close-btn" onclick="hidePopup()">&times;</span>
+      <h3>📢 முக்கிய அறிவிப்பு</h3>
+      <p>🎟 <strong>இப்போது ₹10 டிக்கெட் மட்டும் கிடைக்கும்.</strong><br/>
+      💰 ₹10 டிக்கெட்டுகள் வெற்றிகரமாக முடிந்த பின்பு,<br/>
+      ₹20, ₹50, ₹100 மற்றும் ₹200 டிக்கெட்டுகள் வெளியிடப்படும்!<br/>
+      🔒 பெரிய வெற்றிக்காக காத்திருங்கள்!</p>
+      <hr />
+      <p>🎟 <strong>Currently, only ₹10 tickets are available.</strong><br/>
+      💰 Once ₹10 tickets are successfully completed,<br/>
+      ₹20, ₹50, ₹100 & ₹200 tickets will be launched!<br/>
+      🔒 Stay tuned for more chances to win big!</p>
+    </div>
+  </div>
+
+  <script>
+    function hidePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    // Optional: Show popup automatically on page load
+    window.onload = () => {
+      document.getElementById('popup').style.display = 'flex';
+    };
+  </script>
+
+</body>
+</html>

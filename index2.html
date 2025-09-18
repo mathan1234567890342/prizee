@@ -1,298 +1,301 @@
 <!DOCTYPE html>
-<html lang="ta">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Prize Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tickets Nu</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: #000 url('back3.jpg') no-repeat center center fixed;
+      background: url('back.jpg') no-repeat center center fixed;
       background-size: cover;
-      font-family: Arial, sans-serif;
-      color: #fff;
-    }
-    .top-bar {
-      padding: 10px 20px;
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-    .top-bar button {
-      padding: 8px 12px;
-      background-color: rgba(255, 255, 255, 0.2);
+      font-family: 'Segoe UI', sans-serif;
       color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .top-bar button:hover {
-      background-color: rgba(59, 31, 31, 0.4);
-    }
-    .marquee {
-      width: 100%;
-      overflow: hidden;
-      white-space: nowrap;
-      border-top: 1px solid #fff;
-      border-bottom: 1px solid #fff;
-      background-color: rgba(0, 0, 0, 0.3);
-    }
-    .marquee p {
-      display: inline-block;
-      padding-left: 100%;
-      animation: scroll-left 12s linear infinite;
-      font-size: 20px;
-      color: yellow;
-      font-weight: bold;
-    }
-    @keyframes scroll-left {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-    }
-    .image-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px;
-      padding: 20px;
-    }
-    .image-grid div {
-      text-align: center;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .image-grid div:hover {
-      transform: scale(1.05);
-    }
-    .image-grid img {
-      width: 50%;
-      border-radius: 6px;
-      border: 2px solid transparent;
-      transition: border-color 0.3s;
-      display: block;
-      margin: 0 auto;
-    }
-    .image-grid div:hover img {
-      border-color: yellow;
-    }
-    .image-label {
-      margin-top: 5px;
-      color: rgb(9, 205, 231);
-      font-weight: bold;
-      font-size: 14px;
-      user-select: none;
-    }
-    .popup-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-    .popup {
-      background-color: #222;
-      padding: 20px;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
       text-align: center;
       position: relative;
     }
-    .popup input {
-      width: 90%;
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 10px;
-      border: none;
-      border-radius: 4px;
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
     }
-    .popup button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      background-color: yellow;
-      color: black;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .error {
-      color: red;
-      font-size: 14px;
-      margin-top: 5px;
-    }
-    #codeSection {
-      display: none;
-      margin-top: 15px;
-    }
-    #revealedCode {
-      font-size: 18px;
-      color: lime;
+
+    .marquee {
+      width: 100%;
+      background: rgba(255, 193, 7, 0.9);
+      color: #000;
+      font-size: 20px;
       font-weight: bold;
-      margin-top: 10px;
-      display: none;
+      padding: 10px 0;
+      position: fixed;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 24px;
+
+    .title {
+      margin-top: 100px;
+      font-size: 48px;
+      font-weight: bold;
+      color: #f71606;
+      text-shadow: 2px 2px 8px #000;
+    }
+
+    .button-container {
+      margin: 40px auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .img-button {
+      width: 50px;
+      height: 50px;
+      border-radius: 15px;
+      border: none;
       cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(6px);
+      border: 2px solid transparent;
+    }
+
+    .img-button:hover {
+      transform: scale(1.1);
+      border-color: #ffc107;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .bottom-buttons {
+      margin: 40px auto;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(to right, #ff6f00, #ff8f00);
       color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to right, #ff8f00, #ffa726);
+      transform: scale(1.05);
+    }
+
+    #result-table {
+      margin: 30px auto;
+      width: 80%;
+      max-width: 600px;
+      display: none;
+      border-collapse: collapse;
+      background-color: rgba(255, 255, 255, 0.95);
+      color: #000;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    #result-table th, #result-table td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    #result-table th {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    #result-table tr:nth-child(even) {
+      background-color: #f0f0f0;
+    }
+
+    #result-table tr:nth-child(odd) {
+      background-color: #e0f7fa;
+    }
+
+    #withdraw-form {
+      display: none;
+      margin-top: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    #withdraw-form select,
+    #withdraw-form input {
+      margin: 10px 0;
+      padding: 12px;
+      width: 100%;
+      border-radius: 10px;
+      border: none;
+      font-size: 16px;
+      background-color: rgba(255,255,255,0.9);
+      color: #000;
+    }
+
+    #collect-btn {
+      margin-top: 10px;
+      padding: 14px 20px;
+      width: 100%;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      background-color: #00e676;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    #collect-btn:hover {
+      background-color: #00c853;
+      transform: scale(1.03);
+    }
+
+    @media (max-width: 768px) {
+      .button-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      #result-table {
+        width: 95%;
+      }
+
+      #withdraw-form {
+        width: 95%;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="top-bar">
-    <button onclick="alert('safe')">Disclaimer</button>
-    <button onclick="alert('hii')">Contact Us</button>
-    <button onclick="window.open('v1.mp4', '_blank')">How to Use</button>
-  </div>
-
   <div class="marquee">
-    <p>Welcome! Choose your lucky prize and claim your reward!</p>
+    <marquee>🎉 Welcome to prizee – Your lucky day begins here! 🎉</marquee>
   </div>
 
-  <div class="image-grid" id="imageGrid"></div>
+  <h1 class="title">🎟 choose you prize</h1>
 
-  <div class="popup-overlay" id="popupOverlay">
-    <div class="popup">
-      <span class="close-btn" onclick="popupOverlay.style.display='none'">&times;</span>
-      <h3>Phone Number</h3>
-      <input type="text" id="phoneInput" placeholder="Enter 10 digit number" />
-      <div class="error" id="phoneError"></div>
-      <button onclick="submitPhone()">Next</button>
-
-      <div id="codeSection">
-        <button onclick="askPassword()">Get Code</button>
-        <input type="text" id="passwordInput" placeholder="Enter password" style="margin-top:10px; display:none;" />
-        <button onclick="revealCode()" id="revealBtn" style="display:none;">Reveal</button>
-
-        <div id="revealedCode">
-          🎉 Prize Code: <span id="codeText">1111</span>
-          <button onclick="copyCode()" style="margin-left:10px;">Copy</button>
-          <div id="copyMsg" style="color: lightgreen; font-size: 14px; margin-top: 5px;"></div>
-        </div>
-
-        <br/>
-        <button onclick="sendImageNameToWhatsApp()">இந்த Password</button>
-      </div>
-    </div>
+  <div class="button-container">
+    <img src="10.jpg" class="img-button" onclick="navigate('index3.html')" alt="One">
+    <img src="20.jpg" class="img-button" onclick="navigate('index4.html')" alt="Two">
+    <img src="50.jpg" class="img-button" onclick="navigate('index5.html')" alt="Three">
+    <img src="100.jpg" class="img-button" onclick="navigate('index6.html')" alt="Four">
+    <img src="200.jpg" class="img-button" onclick="navigate('index7.html')" alt="Five">
   </div>
+
+  <div class="bottom-buttons">
+    <button class="btn" onclick="showWithdrawForm()">Withdraw</button>
+    <button class="btn" onclick="showResult()">Result</button>
+  </div>
+
+  <!-- Withdraw Form -->
+  <div id="withdraw-form">
+    <select id="method">
+      <option value="UPI ID">UPI ID</option>
+      <option value="Phone Number">Phone Number</option>
+      <option value="A/C">A/C</option>
+    </select>
+    <input type="text" id="value" placeholder="Enter UPI / Phone / A/C" />
+    <input type="text" id="prizeNo" placeholder="Prize Number e.g. Prize-1" />
+    <input type="text" id="prizeCode" placeholder="Prize Code" />
+    <button id="collect-btn" onclick="collect()">Collect</button>
+  </div>
+
+  <!-- Result Table -->
+  <table id="result-table">
+    <thead>
+      <tr>
+        <th>Prize No</th>
+        <th>prize amount</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
 
   <script>
-    const imageGrid = document.getElementById('imageGrid');
-    const popupOverlay = document.getElementById('popupOverlay');
-    const phoneInput = document.getElementById('phoneInput');
-    const phoneError = document.getElementById('phoneError');
-    const codeSection = document.getElementById('codeSection');
-    const passwordInput = document.getElementById('passwordInput');
-    const revealBtn = document.getElementById('revealBtn');
-    const revealedCode = document.getElementById('revealedCode');
+    const winningCodes = [
+      "-", "-", "-", "-", "-",
+      "-", "-", "-", "-", "-",
+      "-", "-", "-", "-", "-",
+      "-", "-", "-", "-", "-",
+      "-", "-", "-", "-", "-",
+      "-", "-", "-", "-", "-",
+      "-", "-", "-", "-", "-",
+      "-", "-", "-", "-", "-",
+      "-", "-", "-", "-", "-",
+      "-", "-", "-", "-", "-"
+    ];
 
-    let selectedImage = null;
-
-    // Load 50 images with labels
-    for (let i = 1; i <= 50; i++) {
-      const container = document.createElement('div');
-      container.style.textAlign = "center";
-      container.style.cursor = "pointer";
-
-      const img = document.createElement('img');
-      img.src = `i${i}.jpg`;
-      img.alt = `i${i}`;
-      img.onclick = () => openPopup(i);
-
-      const label = document.createElement('div');
-      label.className = 'image-label';
-      label.textContent = `Prize-${i}`;
-
-      container.appendChild(img);
-      container.appendChild(label);
-      imageGrid.appendChild(container);
+    function navigate(url) {
+      window.location.href = url;
     }
 
-    function openPopup(imageNumber) {
-      selectedImage = imageNumber;
-      phoneInput.value = "";
-      phoneError.textContent = "";
-      popupOverlay.style.display = "flex";
+    function showResult() {
+      const table = document.getElementById('result-table');
+      const body = document.getElementById('table-body');
+      body.innerHTML = '';
 
-      codeSection.style.display = "none";
-      passwordInput.style.display = "none";
-      revealBtn.style.display = "none";
-      revealedCode.style.display = "none";
-      phoneInput.style.display = "inline-block";
+      for (let i = 1; i <= 50; i++) {
+        const row = document.createElement('tr');
+        const cell1 = document.createElement('td');
+        const cell2 = document.createElement('td');
+        cell1.textContent = `Prize-${i}`;
+        cell2.textContent = winningCodes[i - 1];
+        row.appendChild(cell1);
+        row.appendChild(cell2);
+        body.appendChild(row);
+      }
+
+      table.style.display = 'table';
+      table.scrollIntoView({ behavior: 'smooth' });
     }
 
-    function submitPhone() {
-      const phone = phoneInput.value.trim();
-      if (!/^\d{10}$/.test(phone)) {
-        phoneError.textContent = "தயவுசெய்து சரியான 10 இலக்க எண்ணை உள்ளிடவும்.";
+    function showWithdrawForm() {
+      const form = document.getElementById('withdraw-form');
+      form.style.display = 'block';
+      form.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function collect() {
+      const method = document.getElementById('method').value;
+      const value = document.getElementById('value').value.trim();
+      const prizeNo = document.getElementById('prizeNo').value.trim();
+      const prizeCode = document.getElementById('prizeCode').value.trim();
+
+      if (!value || !prizeNo || !prizeCode) {
+        alert("Please fill all fields.");
         return;
       }
 
-      phoneError.textContent = "";
-      phoneInput.style.display = "none";
-      codeSection.style.display = "block";
-    }
+      const message = `Withdraw Request:\nMethod: ${method}\nValue: ${value}\nPrize No: ${prizeNo}\nPrize Code: ${prizeCode}`;
+      const encodedMessage = encodeURIComponent(message);
+      const phone = "8148093161";
 
-    function askPassword() {
-      const upiLink = "upi://pay?pa=6369228605@ybl&pn=Prize%20Payment&am=10&cu=INR";
-
-      const userAgreed = confirm(
-        "📲 உங்கள் UPI App (GPay/PhonePe/Paytm) மூலம் ₹10 பணம் செலுத்த:\n\n" +
-        "👉 UPI ID: 6369228605@ybl\n\n" +
-        "OK - கிளிக் செய்தால் உங்கள் UPI App திறக்கும். பணம் செலுத்திய பிறகு பாஸ்வேர்ட் உள்ளிடவும்."
-      );
-
-      if (userAgreed) {
-        window.open(upiLink, '_blank');
-        passwordInput.style.display = "inline-block";
-        revealBtn.style.display = "inline-block";
-      }
-    }
-
-    function revealCode() {
-      const pass = passwordInput.value.trim();
-      if (pass === "lucky123") {
-        revealedCode.style.display = "block";
-        document.getElementById("copyMsg").textContent = "";
-      } else {
-        alert("தவறான பாஸ்வேர்ட்!");
-      }
-    }
-
-    function copyCode() {
-      const code = document.getElementById("codeText").textContent;
-      navigator.clipboard.writeText(code).then(() => {
-        document.getElementById("copyMsg").textContent = "Copied!";
-      }).catch(() => {
-        document.getElementById("copyMsg").textContent = "Copy failed!";
-      });
-    }
-
-    function sendImageNameToWhatsApp() {
-      const phone = phoneInput.value.trim();
-      const defaultNumber = "6369228605";
-
-      if (phone === defaultNumber) {
-        if (selectedImage) {
-          const imageName = `Prize-${selectedImage}`;
-          const message = `Image name: ${imageName}`;
-          const whatsappURL = `https://wa.me/${defaultNumber}?text=${encodeURIComponent(message)}`;
-          window.open(whatsappURL, '_blank');
-        } else {
-          alert("முதலில் ஒரு படத்தைத் தேர்ந்தெடுக்கவும்.");
-        }
-      } else {
-        alert("இந்த சேவையை இந்த எணுக்கு மட்டுமே அனுமதிக்கப்படுகிறது.");
-      }
+      window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
     }
   </script>
 

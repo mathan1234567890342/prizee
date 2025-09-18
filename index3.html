@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prize Page</title>
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Top Bar */
+    .top-bar {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .top-bar button {
+      background-color: #2952a3;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 5px;
+      color: #c1d7ff;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      transition: background-color 0.3s ease;
+    }
+    .top-bar button:hover {
+      background-color: #4a7de8;
+      color: #fff;
+    }
+
+    /* Marquee */
+    .marquee {
+      width: 100%;
+      max-width: 1200px;
+      overflow: hidden;
+      border-top: 2px solid #4a7de8;
+      border-bottom: 2px solid #4a7de8;
+      background-color: rgba(15, 32, 39, 0.7);
+      margin-bottom: 25px;
+      padding: 10px 0;
+    }
+    .marquee p {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 15s linear infinite;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffd700;
+      white-space: nowrap;
+      user-select: none;
+    }
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Prize Grid */
+    .image-grid {
+      max-width: 1200px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 18px;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+    .image-grid div {
+      background: rgba(255 255 255 / 0.1);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(255 255 255 / 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    .image-grid div:hover {
+      transform: translateY(-8px) scale(1.05);
+      box-shadow: 0 8px 20px rgba(255 255 255 / 0.25);
+    }
+    .image-grid img {
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid transparent;
+      transition: border-color 0.3s ease;
+      object-fit: cover;
+      height: 100px;
+      margin-bottom: 8px;
+    }
+    .image-grid div:hover img {
+      border-color: #ffd700;
+    }
+    .image-label {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #80d8ff;
+    }
+
+    /* Popup Overlay */
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1500;
+      padding: 15px;
+    }
+
+    /* Popup Box */
+    .popup {
+      background: #142f43;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 420px;
+      padding: 25px 30px 30px;
+      color: #e0f7fa;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+      position: relative;
+      animation: popupFadeIn 0.3s ease forwards;
+    }
+    @keyframes popupFadeIn {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* Close Button */
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #ffcc00;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    .close-btn:hover {
+      color: #fff176;
+    }
+
+    /* Popup Headings */
+    .popup h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-weight: 700;
+      color: #ffeb3b;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Inputs */
+    .popup input[type="text"] {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 12px;
+      outline: none;
+      color: #0a3749;
+      font-weight: 600;
+      transition: box-shadow 0.3s ease;
+    }
+    .popup input[type="text"]:focus {
+      box-shadow: 0 0 8px 2px #ffd600;
+    }
+
+    /* Buttons */
+    .popup button {
+      width: 100%;
+      padding: 12px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      background: #ffd600;
+      color: #0a3749;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      margin-top: 6px;
+    }
+    .popup button:hover {
+      background-color: #ffea00;
+    }
+
+    /* Error Messages */
+    .error {
+      color: #ff5252;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      min-height: 18px;
+      user-select: none;
+    }
+
+    /* Code Section */
+    #codeSection {
+      margin-top: 15px;
+      display: none;
+    }
+    #revealedCode {
+      font-size: 1.2rem;
+      color: #69f0ae;
+      font-weight: 700;
+      margin-top: 15px;
+      display: none;
+      text-align: center;
+      user-select: text;
+      letter-spacing: 2px;
+    }
+    #copyMsg {
+      font-size: 0.9rem;
+      color: #a5d6a7;
+      margin-top: 6px;
+      min-height: 20px;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .image-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 14px;
+      }
+      .image-grid img {
+        height: 90px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+   <button onclick="alert('Disclaimer: This lottery is meant for entertainment purposes only. By participating, you acknowledge that all ticket purchases are final and non-refundable. Winning is based on chance, and there is no guarantee of winning a prize. Please participate responsibly and ensure you are of legal age as per your local laws. The management is not responsible for any financial loss, technical errors, or misuse of this service. For support or questions, contact our customer care at 6369228605.')">disclaimer</button>
+    <button onclick="alert('C ⚠️ If you face any issues or have questions regarding this lottery, please contact our customer care at 6369228605')">Contact Us</button>
+    <button onclick="alert('choose your prize--->Enter ID NO--->Next--->your code password--->pay ticket amount--->code--->Enter password--->copy code')">how to use</button>
+  
+  </div>
+
+  <div class="marquee">
+    <p>🎉 Welcome! Choose your lucky prize and claim your reward! 🎉</p>
+  </div>
+
+  <div class="image-grid" id="imageGrid"></div>
+
+  <div class="popup-overlay" id="popupOverlay" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="popup" role="document">
+      <span class="close-btn" onclick="closePopup()" aria-label="Close popup">&times;</span>
+      <h3>Enter this number: 8148093161</h3>
+
+      <input type="text" id="phoneInput" placeholder="Enter 10 digit number" aria-label="Phone number" maxlength="10" />
+      <div class="error" id="phoneError"></div>
+
+      <input type="text" id="prizeNumberInput" placeholder="Enter Prize Number" aria-label="Prize Number" readonly />
+      <div class="error" id="prizeError"></div>
+
+      <button onclick="submitPhone()">Next</button>
+
+      <div id="codeSection">
+        <button onclick="askPassword()"> Code</button>
+
+        <input type="text" id="passwordInput" placeholder="Enter password" aria-label="Password" style="margin-top:10px; display:none;" />
+        <button onclick="revealCode()" id="revealBtn" style="display:none; margin-top: 8px;">Reveal</button>
+
+        <div id="revealedCode">
+          🎉 Prize Code: <span id="codeText">1111</span>
+          <button onclick="copyCode()" style="margin-left: 12px; background:#69f0ae; border:none; color:#004d40; border-radius:5px; padding: 4px 10px; cursor:pointer;">Copy</button>
+          <div id="copyMsg"></div>
+        </div>
+
+        <button onclick="sendImageNameToWhatsApp()" style="margin-top: 20px; background:#2979ff; color:#bbdefb;">your code password</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const imageGrid = document.getElementById('imageGrid');
+    const popupOverlay = document.getElementById('popupOverlay');
+    const phoneInput = document.getElementById('phoneInput');
+    const phoneError = document.getElementById('phoneError');
+    const prizeNumberInput = document.getElementById('prizeNumberInput');
+    const prizeError = document.getElementById('prizeError');
+    const codeSection = document.getElementById('codeSection');
+    const passwordInput = document.getElementById('passwordInput');
+    const revealBtn = document.getElementById('revealBtn');
+    const revealedCode = document.getElementById('revealedCode');
+    const copyMsg = document.getElementById('copyMsg');
+
+    let selectedImage = null;
+
+    // Prize codes for each prize from 1 to 50
+    const prizeCodes = {
+     1: "bqzmt",
+2: "rkxan",
+3: "hmjve",
+4: "clpyd",
+5: "wzjrn",
+6: "avxko",
+7: "tgnsf",
+8: "mxqeb",
+9: "ujkyl",
+10: "phzro",
+11: "yduam",
+12: "nkqvs",
+13: "sbzce",
+14: "ledpj",
+15: "xvhgu",
+16: "drmkn",
+17: "fiytw",
+18: "owqzb",
+19: "jgxtc",
+20: "kmeur",
+21: "vnzla",
+22: "hbrwo",
+23: "tzcqm",
+24: "qleuk",
+25: "iwvpx",
+26: "gsknh",
+27: "ucfyd",
+28: "zjame",
+29: "amlkr",
+30: "rxhvd",
+31: "ypcin",
+32: "bdjtw",
+33: "kfnmq",
+34: "eztol",
+35: "vcsuk",
+36: "mhrga",
+37: "lgvxp",
+38: "dqwbz",
+39: "osxjy",
+40: "nwflc",
+41: "jbyrt",
+42: "xagim",
+43: "ptzne",
+44: "cykqb",
+45: "hrvud",
+46: "aqxje",
+47: "mbwlt",
+48: "snzvk",
+49: "gjedo",
+50: "ulyrc",
+51: "last",
+
+    };
+
+    // Load 50 images dynamically with labels
+    for (let i = 1; i <= 50; i++) {
+      const container = document.createElement('div');
+      container.setAttribute('tabindex', '0');
+      container.setAttribute('aria-label', `Prize ${i}`);
+
+      const img = document.createElement('img');
+      img.src = `i${i}.jpg`;
+      img.alt = `Prize image ${i}`;
+      img.loading = "lazy";
+      img.onclick = () => openPopup(i);
+      container.onclick = () => openPopup(i);
+      container.onkeypress = (e) => { if (e.key === "Enter") openPopup(i); };
+
+      const label = document.createElement('div');
+      label.className = 'image-label';
+      label.textContent = `Prize-${i}`;
+
+      container.appendChild(img);
+      container.appendChild(label);
+      imageGrid.appendChild(container);
+    }
+
+    function openPopup(imageNumber) {
+      selectedImage = imageNumber;
+      phoneInput.value = "";
+      phoneError.textContent = "";
+      prizeNumberInput.value = `Prize-${imageNumber}`;
+      prizeError.textContent = "";
+
+      popupOverlay.style.display = "flex";
+
+      codeSection.style.display = "none";
+      passwordInput.style.display = "none";
+      revealBtn.style.display = "none";
+      revealedCode.style.display = "none";
+      copyMsg.textContent = "";
+
+      phoneInput.style.display = "inline-block";
+      prizeNumberInput.style.display = "inline-block";
+
+      // Focus phone input for accessibility
+      phoneInput.focus();
+    }
+
+    function closePopup() {
+      popupOverlay.style.display = 'none';
+      selectedImage = null;
+    }
+
+    function submitPhone() {
+      const phone = phoneInput.value.trim();
+      const prizeNum = prizeNumberInput.value.trim();
+
+      let valid = true;
+
+      if (!/^\d{10}$/.test(phone)) {
+        phoneError.textContent = "தயவுசெய்து சரியான 10 இலக்க எண்ணை உள்ளிடவும்.";
+        valid = false;
+      } else {
+        phoneError.textContent = "";
+      }
+
+      if (!prizeNum) {
+        prizeError.textContent = "Prize Number-ஐ உள்ளிடவும்.";
+        valid = false;
+      } else {
+        prizeError.textContent = "";
+      }
+
+      if (!valid) return;
+
+      // Hide inputs, show code section
+      phoneInput.style.display = "none";
+      prizeNumberInput.style.display = "none";
+      codeSection.style.display = "block";
+
+      passwordInput.style.display = "none";
+      revealBtn.style.display = "none";
+      revealedCode.style.display = "none";
+      copyMsg.textContent = "";
+
+      passwordInput.value = "";
+    }
+
+    function askPassword() {
+      passwordInput.style.display = "inline-block";
+      revealBtn.style.display = "inline-block";
+      revealedCode.style.display = "none";
+      copyMsg.textContent = "";
+      passwordInput.value = "";
+      passwordInput.focus();
+    }
+
+    function revealCode() {
+  const pass = passwordInput.value.trim();
+
+  if (selectedImage && pass === prizePasswords[selectedImage]) {
+    revealedCode.style.display = "block";
+    document.getElementById("codeText").textContent = prizeCodes[selectedImage];
+    copyMsg.textContent = "";
+  } else {
+    alert("தவறான பாஸ்வேர்ட்!");
+    revealedCode.style.display = "none";
+    copyMsg.textContent = "";
+  }
+}
+
+
+    function copyCode() {
+      const codeText = document.getElementById("codeText").textContent;
+      navigator.clipboard.writeText(codeText).then(() => {
+        copyMsg.textContent = "Code copied to clipboard!";
+        setTimeout(() => { copyMsg.textContent = ""; }, 3000);
+      }).catch(() => {
+        copyMsg.textContent = "Copy failed. Please copy manually.";
+      });
+    }
+
+    function sendImageNameToWhatsApp() {
+      if (!selectedImage) {
+        alert("Please select a prize first!");
+        return;
+      }
+      // Replace number below with your WhatsApp number in international format (without +)
+      const phoneNumber = "1234567890";
+
+      const message = encodeURIComponent(`Hi, I need the code password for Prize-${selectedImage}.`);
+      const url = `https://wa.me/${phoneNumber}?text=${message}`;
+      window.open(url, '_blank');
+    }
+
+    // Accessibility: close popup on Escape key
+    window.addEventListener('keydown', e => {
+      if (e.key === "Escape" && popupOverlay.style.display === 'flex') {
+        closePopup();
+      }
+    });
+    const prizePasswords = {
+  1: "WinX834z",
+  2: "Jet12Zpl",
+  3: "LoKiQ987",
+  4: "B0nusT77",
+  5: "Zenyx321",
+  6: "TwiLght8",
+  7: "Giga900K",
+  8: "Spark019",
+  9: "Blaze77Q",
+  10: "FrostX55",
+  11: "Nexon412",
+  12: "VipEra03",
+  13: "SnapX209",
+  14: "K1ngRa99",
+  15: "Drift601",
+  16: "NovaVibe",
+  17: "MaxT1ger",
+  18: "Pulse843",
+  19: "Zard987k",
+  20: "FlipzY10",
+  21: "TrackD25",
+  22: "Xeno7001",
+  23: "BravO289",
+  24: "LuxorV33",
+  25: "Omni453z",
+  26: "EmberQ99",
+  27: "Zoomboy4",
+  28: "HeatL4ke",
+  29: "Zenith03",
+  30: "ProSky99",
+  31: "ByteC123",
+  32: "Thunder8",
+  33: "ZenFox934",
+  34: "RiseFLEX",
+  35: "Raptor74",
+  36: "CodeJ911",
+  37: "NeonX006",
+  38: "DriftA44",
+  39: "JetPack7",
+  40: "Optima10",
+  41: "Tideway1",
+  42: "FireyQ77",
+  43: "FrostBug",
+  44: "SkyZone9",
+  45: "LavaTrek",
+  46: "Ultra456",
+  47: "BreeZe05",
+  48: "RockET90",
+  49: "PrimeX88",
+  50: "Phantom3"
+};
+
+  </script>
+
+</body>
+</html>
